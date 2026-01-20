@@ -1,7 +1,7 @@
 ````markdown
-# Dotfiles de Sebitas
+# Sebitas' Dotfiles
 
-Este repositorio contiene mis configuraciones personales para Arch Linux, incluyendo:
+This repository contains my personal configurations for Arch Linux, including:
 
 - i3  
 - Polybar  
@@ -10,19 +10,19 @@ Este repositorio contiene mis configuraciones personales para Arch Linux, incluy
 - Starship prompt  
 - Zsh  
 
-Todas estas configuraciones están organizadas dentro de `~/.config` y `.zshrc` para ser fácilmente desplegadas en cualquier sistema mediante enlaces simbólicos.
+All these configurations are organized under `~/.config` and `.zshrc` for easy deployment on any system using symbolic links.
 
 ---
 
-## Instalación
+## Installation
 
-Clonar el repositorio:
+Clone the repository:
 
 ```bash
-git clone https://github.com/tuusuario/dotfiles.git ~/dotfiles
+git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
 ````
 
-Crear enlaces simbólicos:
+Create symbolic links:
 
 ```bash
 ln -s ~/dotfiles/.config/nvim ~/.config/nvim
@@ -33,26 +33,22 @@ ln -s ~/dotfiles/.config/starship.toml ~/.config/starship.toml
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 ```
 
-> ⚠️ Haz backup de tus archivos actuales antes de reemplazarlos.
+> ⚠️ Make a backup of your current files before replacing them.
 
 ---
 
-## Créditos
+## Credits
 
-Algunas configuraciones fueron inspiradas o tomadas de los siguientes repositorios:
+Some configurations were inspired by or taken from the following repositories:
 
-* [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) – Base para mi configuración de Neovim
-* [polybar-themes](https://github.com/adi1090x/polybar-themes/tree/master) – Temas y bloques de Polybar
-* Otros proyectos open source cuyos autores se mencionan en los archivos originales
+* [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) – Base for my Neovim configuration
+* [polybar-themes](https://github.com/adi1090x/polybar-themes/tree/master) – Polybar themes and blocks
+* Other open-source projects whose authors are mentioned in the original files
 
 ---
 
-## Notas
+## Notes
 
-* Los archivos `.git` de los repositorios originales fueron eliminados.
-* Este repo tiene como objetivo **mantener mis dotfiles organizados y versionados**, no redistribuir los proyectos originales.
-* Se recomienda revisar los archivos y adaptarlos según tu propio sistema antes de usarlos.
-
-```
-```
-
+* The `.git` directories from the original repositories have been removed.
+* This repo aims to **keep my dotfiles organized and versioned**, not to redistribute the original projects.
+* It is recommended to review the files and adapt them to your own system before use.
