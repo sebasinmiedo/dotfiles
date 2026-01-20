@@ -1,5 +1,3 @@
-¡Listo! Aquí tienes todo el `README.md` en un solo bloque de código para copiar directamente:
-
 ````markdown
 # Dotfiles de Sebitas
 
