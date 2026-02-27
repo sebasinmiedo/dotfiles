@@ -141,3 +141,12 @@ eval "$(atuin init zsh)"
 
 # opencode
 export PATH=/home/sebasinmiedo/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/sebasinmiedo/.bun/_bun" ] && source "/home/sebasinmiedo/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+eval "$(dotnet completions script zsh)"
+export PATH="$PATH:$HOME/.dotnet/tools"

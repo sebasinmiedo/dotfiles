@@ -4,6 +4,24 @@
 -- See the kickstart.nvim README for more information
 return {
   {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    ft = { 'markdown' },
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
+    keys = {
+      {
+        '<leader>mp',
+        '<cmd>MarkdownPreviewToggle<cr>',
+        desc = 'Markdown Preview',
+      },
+    },
+    config = function()
+      vim.g.mkdp_auto_start = 1 -- Abre el navegador al abrir un archivo .md (opcional)
+    end,
+  },
+  {
     'ahmedkhalf/project.nvim',
     config = function()
       require('project_nvim').setup {
@@ -210,7 +228,7 @@ return {
     config = function()
       require('lualine').setup {
         options = {
-          theme = 'tokyonight',
+          theme = 'onedark',
           globalstatus = true,
           section_separators = { left = '', right = '' },
           component_separators = { left = '', right = '' },

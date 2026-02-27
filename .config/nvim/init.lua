@@ -308,38 +308,18 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  {
+  { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
-        add = { text = '▎' },
-        change = { text = '▎' },
-        delete = { text = '' },
-        topdelete = { text = '' },
-        changedelete = { text = '▎' },
-        untracked = { text = '▎' },
-      },
-      signs_staged = {
-        add = { text = '▎' },
-        change = { text = '▎' },
-        delete = { text = '' },
-        topdelete = { text = '' },
-        changedelete = { text = '▎' },
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
       },
     },
   },
-  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
-  --   'lewis6991/gitsigns.nvim',
-  --   opts = {
-  --     signs = {
-  --       add = { text = '+' },
-  --       change = { text = '~' },
-  --       delete = { text = '_' },
-  --       topdelete = { text = '‾' },
-  --       changedelete = { text = '~' },
-  --     },
-  --   },
-  -- },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -948,67 +928,67 @@ require('lazy').setup({
     },
   },
 
-  -- { -- You can easily change to a different colorscheme.
-  --   -- Change the name of the colorscheme plugin below, and then
-  --   -- change the command in the config to whatever the name of that colorscheme is.
-  --   --
-  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --   'folke/tokyonight.nvim',
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   config = function()
-  --     ---@diagnostic disable-next-line: missing-fields
-  --     require('tokyonight').setup {
-  --       transparent = true,
-  --       -- cursorline = true,
-  --       styles = {
-  --         comments = { italic = true }, -- Disable italics in comments
-  --       },
-  --     }
-  --
-  --     -- Load the colorscheme here.
-  --     -- Like many other themes, this one has different styles, and you could load
-  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --     -- vim.cmd.colorscheme 'tokyonight-night'
-  --     vim.cmd.colorscheme 'tokyonight-storm'
-  --   end,
-  -- },
-  {
-    'olimorris/onedarkpro.nvim',
-    priority = 1000, -- Al igual que el anterior, cargamos primero
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'folke/tokyonight.nvim',
+    priority = 1000,
     config = function()
-      require('onedarkpro').setup {
-        options = {
-          -- transparency = true, -- Mantenemos tu transparencia
-          -- cursorline = true,
-        },
-        highlights = {
-          -- --- TRANSPARENCIA (Lo que ya teníamos) ---
-          TelescopeNormal = { bg = 'NONE' },
-          TelescopeBorder = { bg = 'NONE' },
-          NeoTreeNormal = { bg = 'NONE' },
-          NeoTreeNormalNC = { bg = 'NONE' },
-
-          -- --- INTENSIFICAR BÚSQUEDA (/ y ?) ---
-          -- Search: El resaltado de todas las coincidencias encontradas
-          Search = { fg = '#282c34', bg = '#e5c07b', bold = true },
-          -- IncSearch: El resaltado de la coincidencia mientras vas escribiendo
-          IncSearch = { fg = '#282c34', bg = '#61afef', bold = true },
-
-          -- Visual = { bg = '#3e4451', fg = 'NONE', bold = true },
-          Visual = { bg = '#e5c07b', fg = 'white' },
-
-          -- --- INTENSIFICAR COMENTARIOS ---
-          -- Si quieres que el comentario sea de un color más brillante (ej. un gris más claro o cyan)
-          Comment = { fg = '#abb2bf', italic = true, bold = true },
-        },
+      require('tokyonight').setup {
+        style = 'storm',
+        transparent = true,
         styles = {
-          comments = 'italic,bold', -- Mantenemos tus comentarios en cursiva
+          sidebars = 'dark',
+          floats = 'dark', -- Los flotantes de LSP (como definiciones) serán sólidos
         },
+        on_highlights = function(hl, c)
+          -- 1. Colores Sólidos para Ventanas Flotantes Generales (LSP, Diagnósticos)
+          hl.NormalFloat = { bg = c.bg_dark }
+          hl.FloatBorder = { bg = c.bg_dark, fg = c.purple }
+
+          -- 2. Transparencia Sutil para Telescope (Fuzzy Finder)
+          -- Usamos "none" para que Picom/i3 dejen ver el fondo de pantalla
+          hl.TelescopeNormal = { bg = 'none' }
+          hl.TelescopeBorder = { bg = 'none', fg = c.purple }
+
+          -- El área de escritura (Prompt) la dejamos un poco más resaltada
+          hl.TelescopePromptNormal = { bg = 'none' }
+          hl.TelescopePromptBorder = { bg = 'none', fg = c.orange }
+          hl.TelescopePromptTitle = { bg = c.orange, fg = c.bg_dark, bold = true }
+
+          -- Los resultados y la previsualización
+          hl.TelescopeResultsNormal = { bg = 'none' }
+          hl.TelescopePreviewNormal = { bg = 'none' }
+
+          -- Mejoramos el color de la selección dentro del Fuzzy Finder
+          hl.TelescopeSelection = { bg = c.bg_highlight, fg = c.fg_highlight, bold = true }
+        end,
       }
 
-      -- Cargamos el tema
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'tokyonight-storm'
     end,
+    -- 'folke/tokyonight.nvim', priority = 1000, -- Make sure to load this before all the other start plugins.
+    -- config = function()
+    --   ---@diagnostic disable-next-line: missing-fields
+    --   require('tokyonight').setup {
+    --     transparent = true,
+    --     styles = {
+    --       comments = { italic = true }, -- Disable italics in comments
+    --     },
+    --     on_colors = function(colors)
+    --       colors.hint = colors.orange
+    --       colors.error = '#ff0000'
+    --     end,
+    --   }
+    --
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   -- vim.cmd.colorscheme 'tokyonight-night'
+    --   vim.cmd.colorscheme 'tokyonight-storm'
+    -- end,
   },
 
   -- Highlight todo, notes, etc in comments
@@ -1125,13 +1105,12 @@ require('lazy').setup({
   },
 })
 
--- Transparencia de neotree
--- vim.cmd [[
---   highlight Normal guibg=NONE ctermbg=NONE
---   highlight NormalNC guibg=NONE ctermbg=NONE
---   highlight NeoTreeNormal guibg=NONE ctermbg=NONE
---   highlight NeoTreeNormalNC guibg=NONE ctermbg=NONE
--- ]]
+vim.cmd [[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight NeoTreeNormal guibg=NONE ctermbg=NONE
+  highlight NeoTreeNormalNC guibg=NONE ctermbg=NONE
+]]
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

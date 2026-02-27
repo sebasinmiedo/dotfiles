@@ -35,8 +35,8 @@ for_window [class="Conky"] move position 1900px 50px
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 11
-gaps inner 5
-gaps outer 5
+gaps inner 10
+gaps outer 7
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -47,7 +47,7 @@ gaps outer 5
 exec --no-startup-id dex --autostart --environment i3
 exec_always --no-startup-id ~/.config/polybar/launch.sh --cuts
 exec_always --no-startup-id setxkbmap -layout us,latam -option grp:alt_shift_toggle
-exec_always --no-startup-id picom --config ~/.config/picom/picom.conf --backend glx
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf --backend xrender
 # bindsym Print exec flameshot gui & disown
 # exec_always --no-startup-id flameshot & disown
 exec_always --no-startup-id spotify-tray &
@@ -69,11 +69,17 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l dimbl
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# set $refresh_i3status killall -SIGUSR1 i3status
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+set $refresh_polybar polybar-msg action "#pulseaudio.module_reload"
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_polybar
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_polybar
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_polybar
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_polybar
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -91,9 +97,16 @@ bindsym $mod+Return exec kitty -e tmux
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# Abrir explorador de archivos (Thunar)
+bindsym $mod+Shift+Return exec thunar
+
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
+
+# Para usar el launcher con la configuracion del mismo rofi theme selector
 # bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
+
+# Para usar el launcher con la configuracion del polybar
 bindsym $mod+d exec --no-startup-id ~/.config/polybar/cuts/scripts/launcher.sh
 # A more modern dmenu replacement is rofi:
 # bindsym $mod+d exec --no-startup-id rofi -no-config -no-lazy-grab -show drun -modi window,drun,run,ssh -sidebar-mode -show-icons -theme /home/sebasinmiedo/.config/polybar/cuts/scripts/rofi/launcher.rasi
