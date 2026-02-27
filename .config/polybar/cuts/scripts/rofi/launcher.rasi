@@ -8,7 +8,8 @@
  */
 
 configuration {
-	font:							"Iosevka Nerd Font 10";
+	// font:							"Iosevka Nerd Font 10";
+	font:							"JetBrainsMono Nerd Font 12";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
@@ -32,7 +33,7 @@ window {
 	border:							0px;
 	border-color:					@ac;
     border-radius:                  0px;
-	width:							500px;
+	width:							800px;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
@@ -72,8 +73,8 @@ inputbar {
 listview {
     background-color:               @al;
     padding:                        0px;
-    columns:                        1;
-    lines:                          6;
+    columns:                        2;
+    lines:                          10;
     spacing:                        5px;
     cycle:                          true;
     dynamic:                        true;
